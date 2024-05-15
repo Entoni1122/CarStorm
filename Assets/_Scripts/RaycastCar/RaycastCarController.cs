@@ -13,14 +13,13 @@ public class RaycastCarController : MonoBehaviour
     [SerializeField] GameObject[] tires = new GameObject[4];
     [SerializeField] GameObject[] tiresBack = new GameObject[2];
 
-
     [Header("Car Handling")]
     [SerializeField] float maxSpringDistance; //Max distance the spring can go either fully streached or fully compressed
     [SerializeField] float springStiffness; //The force the spring make after being streached
     [SerializeField] float baseSpringLenght; //Spring lenght when not stressed in any way
     [SerializeField] float wheelRadius;
     [SerializeField] float damperdStiffness; //Makes the car more boucy the lower the value is
-    [SerializeField] Vector3 CenterOfMass;
+    [SerializeField] Vector3 CenterOfMass; //Poco sotto il pivot per fare che non flippi
 
     [Header("Inputs")]
     [SerializeField] float moveInput = 0;
@@ -32,13 +31,11 @@ public class RaycastCarController : MonoBehaviour
     [SerializeField] float deceleraion;
     [SerializeField] AnimationCurve turnCurve;
     [SerializeField] float steerStregth;
-    [SerializeField] float dragCoefficient = 1;
+    [SerializeField] float dragCoefficient = 1; //The more the less drift
 
     [Header("Visual")]
-    [SerializeField] float tireRotationSpeed;
+    [SerializeField] float tireRotationSpeed;//Visual rapresentation of the tires turning
     [SerializeField] float maxSteerAngle = 30f;
-
-
 
     Vector3 currentVelocity = Vector3.zero;
     float carVelRation = 0;
@@ -49,7 +46,6 @@ public class RaycastCarController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //rb.centerOfMass = CenterOfMass;
     }
     void FixedUpdate()
     {
@@ -63,6 +59,8 @@ public class RaycastCarController : MonoBehaviour
     {
         GetPlayerInput();
     }
+
+
     void Suspension()
     {
         for (int i = 0; i < raycastPoints.Length; i++)
@@ -102,6 +100,8 @@ public class RaycastCarController : MonoBehaviour
         }
     }
 
+
+    #region CheckCalculations
     void GroundCheck()
     {
         int tempGround = 0;
@@ -127,12 +127,14 @@ public class RaycastCarController : MonoBehaviour
         currentVelocity = transform.InverseTransformDirection(rb.velocity);
         carVelRation = currentVelocity.z / maxSpeed;
     }
-
     void GetPlayerInput()
     {
         moveInput = Input.GetAxis("Vertical");
         steerInput = Input.GetAxis("Horizontal");
     }
+    #endregion
+
+    #region Visuals
 
     void SetTirePosition(GameObject tires, Vector3 tirePos)
     {
@@ -149,7 +151,7 @@ public class RaycastCarController : MonoBehaviour
             {
                 tires[i].transform.Rotate(Vector3.right, tireRotationSpeed * carVelRation * Time.deltaTime, Space.Self);
 
-                tiresBack[i].transform.localEulerAngles = new Vector3(tiresBack[i].transform.localEulerAngles.x,steerAngle, tiresBack[i].transform.localEulerAngles.z);
+                tiresBack[i].transform.localEulerAngles = new Vector3(tiresBack[i].transform.localEulerAngles.x, steerAngle, tiresBack[i].transform.localEulerAngles.z);
 
             }
             else
@@ -158,9 +160,9 @@ public class RaycastCarController : MonoBehaviour
             }
         }
     }
+    #endregion
 
     #region MVM
-
     void Acceleration()
     {
         rb.AddForceAtPosition(acceleration * moveInput * transform.forward, accelerationPoint.position, ForceMode.Acceleration);
