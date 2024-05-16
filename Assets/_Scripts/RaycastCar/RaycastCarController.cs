@@ -38,6 +38,8 @@ public class RaycastCarController : MonoBehaviour
     [SerializeField] float maxSteerAngle = 30f;
 
     Vector3 currentVelocity = Vector3.zero;
+    [SerializeField] float velocityMagitude;
+    [SerializeField] float gravity;
     float carVelRation = 0;
 
     int[] wheelIsGrounded = new int[4];
@@ -58,8 +60,9 @@ public class RaycastCarController : MonoBehaviour
     private void Update()
     {
         GetPlayerInput();
+        dragCoefficient =  3 - (currentVelocity.magnitude / maxSpeed) * 3;
+        velocityMagitude = currentVelocity.magnitude;
     }
-
 
     void Suspension()
     {
@@ -99,7 +102,6 @@ public class RaycastCarController : MonoBehaviour
 
         }
     }
-
 
     #region CheckCalculations
     void GroundCheck()
@@ -192,6 +194,16 @@ public class RaycastCarController : MonoBehaviour
             Turn();
             SideWay();
         }
+        else
+        {
+            print("Flying");
+            ApplyGravity();
+        }
+    }
+
+    void ApplyGravity()
+    {
+        rb.AddForceAtPosition(gravity * -transform.up, transform.position, ForceMode.Force);
     }
 
     void Turn()
