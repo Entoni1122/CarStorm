@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45344501}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28599644, y: -3e-45, z: 1e-45, w: 0.95823073}
+  m_LocalRotation: {x: 0.28599644, y: 1e-45, z: -0, w: 0.95823073}
   m_LocalPosition: {x: 0, y: 8.84, z: -13.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1315,7 +1315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065308686}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28599644, y: -3e-45, z: 1e-45, w: 0.95823073}
+  m_LocalRotation: {x: 0.28599644, y: 1e-45, z: -0, w: 0.95823073}
   m_LocalPosition: {x: 0, y: 8.84, z: -13.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1836,7 +1836,7 @@ MonoBehaviour:
   tireRotationSpeed: 3000
   maxSteerAngle: 30
   velocityMagitude: 0
-  gravity: 70000
+  gravity: 40000
 --- !u!54 &1159315727
 Rigidbody:
   m_ObjectHideFlags: 0
