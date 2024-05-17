@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Threading;
 using UnityEngine;
 
@@ -28,7 +29,6 @@ public class RaycastCarController : MonoBehaviour
     [Header("CarStats")]
     [SerializeField] float acceleration;
     [SerializeField] float maxSpeed;
-    [SerializeField] float deceleraion;
     [SerializeField] AnimationCurve turnCurve;
     [SerializeField] float steerStregth;
     [SerializeField] float dragCoefficient = 1; //The more the less drift
@@ -36,6 +36,7 @@ public class RaycastCarController : MonoBehaviour
     [Header("Visual")]
     [SerializeField] float tireRotationSpeed;//Visual rapresentation of the tires turning
     [SerializeField] float maxSteerAngle = 30f;
+    [SerializeField] float breakForce;
 
     Vector3 currentVelocity = Vector3.zero;
     [SerializeField] float velocityMagitude;
@@ -60,7 +61,7 @@ public class RaycastCarController : MonoBehaviour
     private void Update()
     {
         GetPlayerInput();
-        dragCoefficient =  3 - (currentVelocity.magnitude / maxSpeed) * 3;
+        dragCoefficient = 3 - (currentVelocity.magnitude / maxSpeed) * 3;
         velocityMagitude = currentVelocity.magnitude;
     }
 
@@ -170,9 +171,13 @@ public class RaycastCarController : MonoBehaviour
         rb.AddForceAtPosition(acceleration * moveInput * transform.forward, accelerationPoint.position, ForceMode.Acceleration);
     }
 
-    void Deceleration()
+    void Break()
     {
-        rb.AddForceAtPosition(deceleraion * moveInput * -transform.forward, accelerationPoint.position, ForceMode.Acceleration);
+        if (currentVelocity.magnitude != 0)
+        {
+            breakForce += Time.deltaTime;
+            rb.AddForceAtPosition(breakForce * -rb.velocity, accelerationPoint.position, ForceMode.Acceleration);
+        }
     }
 
     void SideWay()
@@ -190,7 +195,14 @@ public class RaycastCarController : MonoBehaviour
         if (isGrounded)
         {
             Acceleration();
-            Deceleration();
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Break();
+            }
+            else
+            {
+                breakForce = 2;
+            }
             Turn();
             SideWay();
         }
