@@ -1114,7 +1114,7 @@ MonoBehaviour:
   steerStregth: 50
   dragCoefficient: 1
   tireRotationSpeed: 2000
-  maxSteerAngle: 2
+  maxSteerAngle: 30
   breakForce: 2
   velocityMagitude: 0
   gravity: 40000
