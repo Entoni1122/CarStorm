@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Threading;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class RaycastCarController : MonoBehaviour
 {
     [Header("Base Vars")]
@@ -46,6 +47,8 @@ public class RaycastCarController : MonoBehaviour
     int[] wheelIsGrounded = new int[4];
     bool isGrounded = false;
 
+    [SerializeField] bool shouldTireRotateY;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -56,7 +59,14 @@ public class RaycastCarController : MonoBehaviour
         GroundCheck();
         CalculateCarVelocity();
         Movement();
-        TireVisual();
+        if(!shouldTireRotateY)
+        {
+            TireVisualX();
+        }
+        else
+        {
+            TireVisualY();
+        }
     }
     private void Update()
     {
@@ -144,7 +154,28 @@ public class RaycastCarController : MonoBehaviour
         tires.transform.position = tirePos;
     }
 
-    void TireVisual()
+    void TireVisualY()
+    {
+        float steerAngle = maxSteerAngle * steerInput;
+
+        for (int i = 0; i < tires.Length; i++)
+        {   
+            if (i < 2)
+            {
+                tires[i].transform.Rotate(Vector3.forward, tireRotationSpeed * carVelRation * Time.deltaTime, Space.Self);
+
+                tiresBack[i].transform.localEulerAngles = new Vector3(tiresBack[i].transform.localEulerAngles.x, steerAngle, tiresBack[i].transform.localEulerAngles.z);
+
+            }
+            else
+            {
+                tires[i].transform.Rotate(Vector3.forward, tireRotationSpeed * moveInput * Time.deltaTime, Space.Self);
+            }
+        }
+    }
+
+
+    void TireVisualX()
     {
         float steerAngle = maxSteerAngle * steerInput;
 
