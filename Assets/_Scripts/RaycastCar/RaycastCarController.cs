@@ -20,7 +20,7 @@ public class RaycastCarController : MonoBehaviour
     [SerializeField] float baseSpringLenght; //Spring lenght when not stressed in any way
     [SerializeField] float wheelRadius;
     [SerializeField] float damperdStiffness; //Makes the car more boucy the lower the value is
-    [SerializeField] Vector3 CenterOfMass; //Poco sotto il pivot per fare che non flippi
+    [SerializeField] Vector3 centerOfMass; //Poco sotto il pivot per fare che non flippi
 
     [Header("Inputs")]
     [SerializeField] float moveInput = 0;

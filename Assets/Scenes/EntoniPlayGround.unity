@@ -1082,7 +1082,7 @@ MonoBehaviour:
   baseSpringLenght: 0.1
   wheelRadius: 1.2
   damperdStiffness: 4000
-  CenterOfMass: {x: 0, y: -1, z: 0}
+  centerOfMass: {x: 0, y: 0, z: 0}
   moveInput: 0
   steerInput: 0
   acceleration: 60
