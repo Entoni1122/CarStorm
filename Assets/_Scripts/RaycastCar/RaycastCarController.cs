@@ -59,7 +59,7 @@ public class RaycastCarController : MonoBehaviour
         GroundCheck();
         CalculateCarVelocity();
         Movement();
-        if(!shouldTireRotateY)
+        if (!shouldTireRotateY)
         {
             TireVisualX();
         }
@@ -107,10 +107,8 @@ public class RaycastCarController : MonoBehaviour
 
                 SetTirePosition(tires[i], raycastPoints[i].position - raycastPoints[i].up * maxLenght);
 
-
                 Debug.DrawLine(raycastPoints[i].position, raycastPoints[i].position + (wheelRadius + maxLenght) * -raycastPoints[i].up, Color.green);
             }
-
         }
     }
 
@@ -148,10 +146,10 @@ public class RaycastCarController : MonoBehaviour
     #endregion
 
     #region Visuals
-
+    [SerializeField] float tirePositionLerpSpeed;
     void SetTirePosition(GameObject tires, Vector3 tirePos)
     {
-        tires.transform.position = tirePos;
+        tires.transform.position = Vector3.Lerp(tires.transform.position, tirePos, tirePositionLerpSpeed * Time.deltaTime);
     }
 
     void TireVisualY()
@@ -159,7 +157,7 @@ public class RaycastCarController : MonoBehaviour
         float steerAngle = maxSteerAngle * steerInput;
 
         for (int i = 0; i < tires.Length; i++)
-        {   
+        {
             if (i < 2)
             {
                 tires[i].transform.Rotate(Vector3.forward, tireRotationSpeed * carVelRation * Time.deltaTime, Space.Self);
@@ -246,12 +244,12 @@ public class RaycastCarController : MonoBehaviour
 
     void ApplyGravity()
     {
-        rb.AddForceAtPosition(gravity * -transform.up, transform.position, ForceMode.Force);
+        rb.AddForceAtPosition(gravity * -transform.up, transform.position, ForceMode.Acceleration);
     }
 
     void Turn()
     {
-        rb.AddTorque(steerStregth * steerInput * turnCurve.Evaluate(carVelRation) * Mathf.Sign(carVelRation) * transform.up, ForceMode.Acceleration);
+        rb.AddTorque(steerStregth * steerInput * Mathf.Sign(carVelRation) * transform.up, ForceMode.Acceleration);
     }
     #endregion   //Movemnt Input and acceleraion-deceleration
 }
