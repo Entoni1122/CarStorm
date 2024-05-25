@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869860315826657332}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7092163, z: -0, w: 0.7049909}
+  m_LocalRotation: {x: 0, y: -0.70921403, z: 0, w: 0.7049933}
   m_LocalPosition: {x: -133.34, y: 6.07, z: 203.74574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -67,8 +67,8 @@ Transform:
   - {fileID: 6119854800432893846}
   - {fileID: 4751867158971190046}
   - {fileID: 3270155935653155740}
-  - {fileID: 1984583211571713732}
   - {fileID: 2387192422834436490}
+  - {fileID: 430577400168101819}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90.342, z: 0}
 --- !u!54 &7556171896176119897
@@ -119,7 +119,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
-  accelerationPoint: {fileID: 1984583211571713732}
+  accelerationPoint: {fileID: 430577400168101819}
   tires:
   - {fileID: 3174100602623607213}
   - {fileID: 1294028747940877249}
@@ -129,8 +129,8 @@ MonoBehaviour:
   - {fileID: 351898471743791282}
   - {fileID: 6385853081107531554}
   maxSpringDistance: 1
-  springStiffness: 40000
-  baseSpringLenght: 0.44
+  springStiffness: 50000
+  baseSpringLenght: 0.22
   wheelRadius: 1.42
   damperdStiffness: 5000
   centerOfMass: {x: 0, y: -1, z: 0}
@@ -162,14 +162,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  steerStregth: 90
+  steerStregth: 20
   dragCoefficient: 1
   tireRotationSpeed: 2000
   maxSteerAngle: 40
   breakForce: 2
   velocityMagitude: 0
-  gravity: 40000
+  gravity: 50
   shouldTireRotateY: 1
+  tirePositionLerpSpeed: 9
 --- !u!1 &1042257980634480894
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +282,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0.1505611, y: 0, z: 0}
-  m_LocalScale: {x: 100.00004, y: 100, z: 50.00002}
+  m_LocalScale: {x: 112, y: 112, z: 66}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7687654690138769072}
@@ -784,37 +785,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3201030870567442479
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1984583211571713732}
-  m_Layer: 0
-  m_Name: AccelPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1984583211571713732
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3201030870567442479}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.83, z: -0.79}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 467791765957155157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3309217442695343612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,8 +1372,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046740731790253370}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24293509, y: 0.4971792, z: -0.14732948, w: 0.81981057}
-  m_LocalPosition: {x: -21.74221, y: 15.93, z: -11.332775}
+  m_LocalRotation: {x: 0.33866996, y: 0.4431252, z: -0.18549712, w: 0.80903256}
+  m_LocalPosition: {x: -30.232664, y: 36.420002, z: -19.318977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1535,7 +1505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: -17.57, y: 15.71, z: -11.75}
+  m_FollowOffset: {x: -26, y: 36.2, z: -19.8}
   m_XDamping: 0.2
   m_YDamping: 0.2
   m_ZDamping: 0.2
@@ -2370,6 +2340,37 @@ Transform:
   - {fileID: 7687654690138769072}
   - {fileID: 8177819469754681068}
   - {fileID: 4959581461947472659}
+  m_Father: {fileID: 467791765957155157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8017984114313780874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 430577400168101819}
+  m_Layer: 0
+  m_Name: Acellepoit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430577400168101819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017984114313780874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.42, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 467791765957155157}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8599068887664042559

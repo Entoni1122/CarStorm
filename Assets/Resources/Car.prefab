@@ -193,11 +193,10 @@ GameObject:
   - component: {fileID: 4571918139935285220}
   - component: {fileID: 1360338710657584259}
   - component: {fileID: 4366161917075963816}
-  - component: {fileID: 7418936263049777712}
   - component: {fileID: 6595370933632518604}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,7 +209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2359430580686869309}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28599644, y: 3e-45, z: -1e-45, w: 0.9582307}
+  m_LocalRotation: {x: 0.28599644, y: -1e-45, z: -0, w: 0.9582307}
   m_LocalPosition: {x: 0, y: 8.84, z: -13.489998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -275,22 +274,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2359430580686869309}
-  m_Enabled: 1
---- !u!114 &7418936263049777712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2359430580686869309}
   m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30fdb5bb671e4fa4b8429b6c9057f769, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 2122370536206193394}
-  OffSet: {x: 0, y: 6, z: -9}
-  slerpSpeed: 2
 --- !u!114 &6595370933632518604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,7 +535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2122370536206193394
 Transform:
   m_ObjectHideFlags: 0
@@ -636,12 +620,11 @@ MonoBehaviour:
   baseSpringLenght: 1.01
   wheelRadius: 0.87
   damperdStiffness: 4000
-  CenterOfMass: {x: 0, y: -1, z: 0}
+  centerOfMass: {x: 0, y: 0, z: 0}
   moveInput: 0
   steerInput: 0
-  acceleration: 7
+  acceleration: 60
   maxSpeed: 200
-  deceleraion: 40
   turnCurve:
     serializedVersion: 2
     m_Curve:
@@ -670,8 +653,11 @@ MonoBehaviour:
   dragCoefficient: 1
   tireRotationSpeed: 3000
   maxSteerAngle: 30
+  breakForce: 0
   velocityMagitude: 0
   gravity: 40000
+  shouldTireRotateY: 0
+  tirePositionLerpSpeed: 0
 --- !u!1 &4828769747105726198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7364615633676909836}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28599644, y: 3e-45, z: -1e-45, w: 0.9582307}
+  m_LocalRotation: {x: 0.28599644, y: -1e-45, z: -0, w: 0.9582307}
   m_LocalPosition: {x: 0, y: 8.84, z: -13.489998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
