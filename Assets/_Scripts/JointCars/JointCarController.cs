@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class JointCarController : MonoBehaviour
 {
+    [Header("Car General VALUE")]
     [SerializeField] float accelerationForce;
     [SerializeField] float breakForce;
     [SerializeField] float steerForce;
     [SerializeField] float maxSteerAngle;
+    [SerializeField] float dragCoefficient;
+    [SerializeField] Transform accelerationPoint;
+
+    [Header("Car Visuals")]
     [SerializeField] GameObject[] tires = new GameObject[4];
     [SerializeField] GameObject[] tiresBck = new GameObject[2];
     [SerializeField] float tireRotationSpeed;
 
-    [SerializeField] Transform accelerationPoint;
-    [SerializeField] Rigidbody rb;
-
-    [SerializeField] float forwardInput;
-    [SerializeField] float steerInput;
+    Rigidbody rb;
+    float forwardInput;
+    float steerInput;
 
     private void Awake()
     {
@@ -26,17 +29,31 @@ public class JointCarController : MonoBehaviour
     private void Update()
     {
         ReadInput();
+
     }
     private void FixedUpdate()
     {
-        Acceleration();
-        Steer();
-        if (Input.GetKey(KeyCode.Space))
+        if (GroundCheck())
         {
-            Break();
+            Acceleration();
+            Steer();
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Break();
+            }
         }
-        TireVisualX();
     }
+
+    bool GroundCheck()
+    {
+        Debug.DrawLine(transform.position, Vector3.down * 3f, Color.red);
+        if (Physics.Raycast(transform.position, Vector3.down, 3f))
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     #region ReadValue
     void ReadInput()
@@ -59,6 +76,16 @@ public class JointCarController : MonoBehaviour
     {
         rb.AddForceAtPosition(-transform.up * accelerationForce, accelerationPoint.position, ForceMode.Acceleration);
     }
+    void SideWay()
+    {
+        float currentSideSpeed = rb.velocity.x;
+
+        float dragMagnitude = -currentSideSpeed * dragCoefficient;
+
+        Vector3 dragForce = transform.right * dragMagnitude;
+
+        rb.AddForceAtPosition(dragForce, rb.worldCenterOfMass, ForceMode.Acceleration);
+    }
     #endregion
 
     void TireVisualX()
@@ -69,7 +96,7 @@ public class JointCarController : MonoBehaviour
         {
             if (i < 2)
             {
-                tires[i].transform.Rotate(Vector3.right, tireRotationSpeed* Time.deltaTime, Space.Self);
+                tires[i].transform.Rotate(Vector3.right, tireRotationSpeed * Time.deltaTime, Space.Self);
 
                 tiresBck[i].transform.localEulerAngles = new Vector3(tiresBck[i].transform.localEulerAngles.x, steerAngle, tiresBck[i].transform.localEulerAngles.z);
 
