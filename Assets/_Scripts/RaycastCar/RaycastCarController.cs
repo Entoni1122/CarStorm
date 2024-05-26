@@ -7,6 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class RaycastCarController : MonoBehaviour
 {
+    [Header("Joystick")]
+    [SerializeField] Joystick TouchJoystick;
+    [SerializeField] float YawOffset = 45;
+
     [Header("Base Vars")]
     [SerializeField] Transform[] raycastPoints;
     [SerializeField] Rigidbody rb;
@@ -140,8 +144,10 @@ public class RaycastCarController : MonoBehaviour
     }
     void GetPlayerInput()
     {
-        moveInput = Input.GetAxis("Vertical");
-        steerInput = Input.GetAxis("Horizontal");
+        //moveInput = Input.GetAxis("Vertical");
+        //steerInput = Input.GetAxis("Horizontal");
+        moveInput = TouchJoystick.Direction.y;
+        steerInput = TouchJoystick.Direction.x;
     }
     #endregion
 
@@ -163,7 +169,6 @@ public class RaycastCarController : MonoBehaviour
                 tires[i].transform.Rotate(Vector3.forward, tireRotationSpeed * carVelRation * Time.deltaTime, Space.Self);
 
                 tiresBack[i].transform.localEulerAngles = new Vector3(tiresBack[i].transform.localEulerAngles.x, steerAngle, tiresBack[i].transform.localEulerAngles.z);
-
             }
             else
             {
@@ -197,9 +202,9 @@ public class RaycastCarController : MonoBehaviour
     #region MVM
     void Acceleration()
     {
-        rb.AddForceAtPosition(acceleration * moveInput * transform.forward, accelerationPoint.position, ForceMode.Acceleration);
+        rb.AddForceAtPosition(acceleration * TouchJoystick.MoveAmount * transform.forward, accelerationPoint.position, ForceMode.Acceleration);
     }
-
+     
     void Break()
     {
         if (currentVelocity.magnitude != 0)
@@ -249,7 +254,15 @@ public class RaycastCarController : MonoBehaviour
 
     void Turn()
     {
-        rb.AddTorque(steerStregth * steerInput * Mathf.Sign(carVelRation) * transform.up, ForceMode.Acceleration);
+        //rb.AddTorque(steerStregth * steerInput * Mathf.Sign(carVelRation) * transform.up, ForceMode.Acceleration);
+
+        if (TouchJoystick.MoveAmount != 0)
+        {
+            Vector3 ForwardFix = new Vector3(TouchJoystick.Direction.x, 0, TouchJoystick.Direction.y);
+            Quaternion TargetRotation = Quaternion.LookRotation(ForwardFix, Vector3.up);
+            TargetRotation.eulerAngles -= new Vector3(0, YawOffset, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, steerStregth * Time.fixedDeltaTime); 
+        }
     }
     #endregion   //Movemnt Input and acceleraion-deceleration
 }

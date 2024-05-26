@@ -10,6 +10,6 @@ public class CameraFollower : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, target.position + OffSet, lerpSpeed);
+        transform.position = Vector3.Lerp(transform.position, target.position + OffSet, lerpSpeed * Time.fixedDeltaTime);
     }
 }
