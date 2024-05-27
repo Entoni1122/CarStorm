@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Pun/StartGameLoading.unity
+    guid: 072e00b85aba34a4a81b09d89d5db45b
+  - enabled: 1
+    path: Assets/Scenes/Pun/LobbyFinder.unity
+    guid: 0df2e40dae244c14b9818ef5dd497b69
+  - enabled: 1
+    path: Assets/Scenes/Pun/EntoniPlayGround.unity
+    guid: a49dbfa2765033d4086ec98a4c86b870
   m_configObjects: {}
