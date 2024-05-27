@@ -1,9 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using System;
+using UnityEditor.Profiling;
 
 public class HostEnterPun : MonoBehaviourPunCallbacks
 {
@@ -64,7 +65,15 @@ public class HostEnterPun : MonoBehaviourPunCallbacks
 
     public void JoinRoomFromContent(string InRoomName)
     {
-        PhotonNetwork.JoinRoom(InRoomName);
+        try
+        {
+            PhotonNetwork.JoinRoom(InRoomName);
+
+        }
+        catch (Exception e)
+        {
+            print(e.Message);
+        }
     }
 
     public override void OnJoinedRoom()
