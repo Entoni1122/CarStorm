@@ -8,6 +8,11 @@ public class CameraFollower : MonoBehaviour
     [SerializeField] Vector3 OffSet;
     [SerializeField] float lerpSpeed;
 
+    public void Init(Transform InTarget)
+    {
+        target = InTarget;
+    }
+
     private void FixedUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, target.position + OffSet, lerpSpeed * Time.fixedDeltaTime);

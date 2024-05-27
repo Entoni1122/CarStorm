@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Threading;
 using UnityEngine;
+using Photon.Pun;
+using Cinemachine;
+
 
 [RequireComponent(typeof(Rigidbody))]
 public class RaycastCarController : MonoBehaviour
@@ -46,18 +45,53 @@ public class RaycastCarController : MonoBehaviour
     Vector3 currentVelocity = Vector3.zero;
     [SerializeField] float velocityMagitude;
     [SerializeField] float gravity;
+    [SerializeField] bool shouldTireRotateY;
     float carVelRation = 0;
 
     int[] wheelIsGrounded = new int[4];
     bool isGrounded = false;
+    PhotonView punView;
+    [SerializeField] float tirePositionLerpSpeed;
 
-    [SerializeField] bool shouldTireRotateY;
+    [Header("Cameras")]
+    [SerializeField] GameObject cameraToSpawn;
+    [SerializeField] GameObject cameraOffSet;
+    [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
+
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        punView = GetComponent<PhotonView>();
+
+        SetUpCameras();
+
+        if (!punView.IsMine)
+        {
+            GetComponent<Camera>().enabled = false;
+        }
     }
+
+    public void SetUpCameras()
+    {
+        GameObject cinemachineBrain =  Instantiate(cameraToSpawn);
+        GameObject cameraOff = Instantiate(cameraOffSet);
+        cameraOff.GetComponent<CameraFollower>().Init(this.gameObject.transform);
+
+        cinemachineVirtualCamera.Follow = cameraOff.transform;
+        cinemachineVirtualCamera.LookAt = transform;
+    }
+
+
     void FixedUpdate()
+    {
+        if (punView.IsMine)
+        {
+            MovementUpdate();
+        }
+    }
+
+    public void MovementUpdate()
     {
         Suspension();
         GroundCheck();
@@ -152,7 +186,6 @@ public class RaycastCarController : MonoBehaviour
     #endregion
 
     #region Visuals
-    [SerializeField] float tirePositionLerpSpeed;
     void SetTirePosition(GameObject tires, Vector3 tirePos)
     {
         tires.transform.position = Vector3.Lerp(tires.transform.position, tirePos, tirePositionLerpSpeed * Time.deltaTime);
@@ -204,7 +237,7 @@ public class RaycastCarController : MonoBehaviour
     {
         rb.AddForceAtPosition(acceleration * TouchJoystick.MoveAmount * transform.forward, accelerationPoint.position, ForceMode.Acceleration);
     }
-     
+
     void Break()
     {
         if (currentVelocity.magnitude != 0)
@@ -261,7 +294,7 @@ public class RaycastCarController : MonoBehaviour
             Vector3 ForwardFix = new Vector3(TouchJoystick.Direction.x, 0, TouchJoystick.Direction.y);
             Quaternion TargetRotation = Quaternion.LookRotation(ForwardFix, Vector3.up);
             TargetRotation.eulerAngles -= new Vector3(0, YawOffset, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, steerStregth * Time.fixedDeltaTime); 
+            transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, steerStregth * Time.fixedDeltaTime);
         }
     }
     #endregion   //Movemnt Input and acceleraion-deceleration
