@@ -71,7 +71,7 @@ public class RaycastCarController : MonoBehaviour
     {
         GameObject cinemachineBrain = Instantiate(cameraToSpawn);
         GameObject cameraOff = Instantiate(cameraOffSet);
-        cameraOff.GetComponent<CameraFollower>().Init(this.gameObject.transform);
+        cameraOff.GetComponent<CameraFollower>().Init(this.gameObject.transform, ref punView);
 
         if (!punView.IsMine)
         {
