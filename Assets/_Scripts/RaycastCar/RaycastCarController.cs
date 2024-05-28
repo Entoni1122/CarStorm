@@ -66,10 +66,6 @@ public class RaycastCarController : MonoBehaviour
 
         SetUpCameras();
 
-        if (!punView.IsMine)
-        {
-            GetComponent<Camera>().enabled = false;
-        }
     }
 
     public void SetUpCameras()
@@ -78,6 +74,10 @@ public class RaycastCarController : MonoBehaviour
         GameObject cameraOff = Instantiate(cameraOffSet);
         cameraOff.GetComponent<CameraFollower>().Init(this.gameObject.transform);
 
+        if (!punView.IsMine)
+        {
+            cinemachineBrain.SetActive(false);
+        }
         cinemachineVirtualCamera.Follow = cameraOff.transform;
         cinemachineVirtualCamera.LookAt = transform;
     }
