@@ -57,7 +57,7 @@ public class RaycastCarController : MonoBehaviour
     [SerializeField] GameObject cameraToSpawn;
     [SerializeField] GameObject cameraOffSet;
     [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
-
+    [SerializeField] GameObject canvas;
 
     private void Start()
     {
@@ -65,7 +65,6 @@ public class RaycastCarController : MonoBehaviour
         punView = GetComponent<PhotonView>();
 
         SetUpCameras();
-
     }
 
     public void SetUpCameras()
@@ -77,6 +76,7 @@ public class RaycastCarController : MonoBehaviour
         if (!punView.IsMine)
         {
             cinemachineBrain.SetActive(false);
+            canvas.SetActive(false);
         }
         cinemachineVirtualCamera.Follow = cameraOff.transform;
         cinemachineVirtualCamera.LookAt = transform;

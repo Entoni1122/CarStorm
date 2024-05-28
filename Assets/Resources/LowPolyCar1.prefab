@@ -181,6 +181,7 @@ MonoBehaviour:
   cameraOffSet: {fileID: 8985809655946763847, guid: d228c7dc29238fc4dbc8d05cf7e94479,
     type: 3}
   cinemachineVirtualCamera: {fileID: 6913090234288611257}
+  canvas: {fileID: 816526950002278032}
 --- !u!114 &-1526405182450685295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2870,6 +2871,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e1a9bea68c672645a82d98242ac4786, type: 3}
+--- !u!1 &816526950002278032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5628456674558899168, guid: 4e1a9bea68c672645a82d98242ac4786,
+    type: 3}
+  m_PrefabInstance: {fileID: 4992426455455059312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4209559643154155714 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9161435826174772658, guid: 4e1a9bea68c672645a82d98242ac4786,
