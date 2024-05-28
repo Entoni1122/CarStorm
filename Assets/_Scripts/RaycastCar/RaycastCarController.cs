@@ -69,7 +69,7 @@ public class RaycastCarController : MonoBehaviour
 
     public void SetUpCameras()
     {
-        GameObject cinemachineBrain =  Instantiate(cameraToSpawn);
+        GameObject cinemachineBrain = Instantiate(cameraToSpawn);
         GameObject cameraOff = Instantiate(cameraOffSet);
         cameraOff.GetComponent<CameraFollower>().Init(this.gameObject.transform);
 
@@ -77,9 +77,13 @@ public class RaycastCarController : MonoBehaviour
         {
             cinemachineBrain.SetActive(false);
             canvas.SetActive(false);
+            cinemachineVirtualCamera.gameObject.SetActive(false);
         }
-        cinemachineVirtualCamera.Follow = cameraOff.transform;
-        cinemachineVirtualCamera.LookAt = transform;
+        else
+        {
+            cinemachineVirtualCamera.Follow = cameraOff.transform;
+            cinemachineVirtualCamera.LookAt = transform;
+        }
     }
 
 
