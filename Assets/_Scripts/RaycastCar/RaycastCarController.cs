@@ -123,7 +123,7 @@ public class RaycastCarController : MonoBehaviour
         {
             RaycastHit hit;
             float maxLenght = baseSpringLenght + maxSpringDistance;
-            if (Physics.Raycast(raycastPoints[i].transform.position, -raycastPoints[i].up, out hit, maxLenght + wheelRadius, ground))
+            if (Physics.Raycast(raycastPoints[i].transform.position, Vector3.down, out hit, maxLenght + wheelRadius))
             {
                 wheelIsGrounded[i] = 1;
 
