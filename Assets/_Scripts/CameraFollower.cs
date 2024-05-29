@@ -14,15 +14,19 @@ public class CameraFollower : MonoBehaviour
         target = InTarget;
         PhotonView = InPhotonView;
     }
-
     private void FixedUpdate()
     {
-        if (PhotonView.IsMine)
-        {
-            if (target != null)
-            {
-                transform.position = Vector3.Lerp(transform.position, target.position + OffSet, lerpSpeed * Time.fixedDeltaTime);
-            }
-        }
+        transform.position = Vector3.Lerp(transform.position, target.position + OffSet, lerpSpeed * Time.fixedDeltaTime);
+        
     }
+    //private void FixedUpdate()
+    //{
+    //    if (PhotonView.IsMine)
+    //    {
+    //        if (target != null)
+    //        {
+    //            transform.position = Vector3.Lerp(transform.position, target.position + OffSet, lerpSpeed * Time.fixedDeltaTime);
+    //        }
+    //    }
+    //}
 }
