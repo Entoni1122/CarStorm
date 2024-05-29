@@ -97,8 +97,8 @@ public class RaycastCarController : MonoBehaviour
 
     public void MovementUpdate()
     {
-        Suspension();
         GroundCheck();
+        Suspension();
         CalculateCarVelocity();
         Movement();
         if (!shouldTireRotateY)
@@ -123,7 +123,7 @@ public class RaycastCarController : MonoBehaviour
         {
             RaycastHit hit;
             float maxLenght = baseSpringLenght + maxSpringDistance;
-            if (Physics.Raycast(raycastPoints[i].transform.position, Vector3.down, out hit, maxLenght + wheelRadius))
+            if (Physics.Raycast(raycastPoints[i].transform.position, Vector3.down, out hit, maxLenght + wheelRadius, ground))
             {
                 wheelIsGrounded[i] = 1;
 
@@ -279,14 +279,13 @@ public class RaycastCarController : MonoBehaviour
         }
         else
         {
-            print("Flying");
             ApplyGravity();
         }
     }
 
     void ApplyGravity()
     {
-        rb.AddForceAtPosition(gravity * -transform.up, transform.position, ForceMode.Acceleration);
+        rb.AddForceAtPosition(gravity * Vector3.down, transform.position, ForceMode.Acceleration);
     }
 
     void Turn()

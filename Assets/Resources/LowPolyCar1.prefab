@@ -138,7 +138,7 @@ MonoBehaviour:
   baseSpringLenght: 0.5
   wheelRadius: 1.2
   damperdStiffness: 4000
-  centerOfMass: {x: 0, y: -1, z: 0}
+  centerOfMass: {x: 0, y: 0, z: 0}
   moveInput: 0
   steerInput: 0
   acceleration: 70
@@ -1680,7 +1680,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5710109397984249749}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 07f6416790a20bf4986b542088a452ea, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
