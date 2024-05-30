@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 struct PlayerInfo
 {
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game References")]
     [SerializeField] private List<Transform> SpawnPoints;
-    private List<RaycastCarController> PlayersDebug = new List<RaycastCarController>();
+    [SerializeField] private List<RaycastCarController> PlayersDebug = new List<RaycastCarController>();
     private Dictionary<int, PlayerInfo> Players = new Dictionary<int, PlayerInfo>();
 
 
@@ -52,13 +53,9 @@ public class GameManager : MonoBehaviour
 
     void SetPlayersPosition()
     {
-        List<Transform> CachedSpawnPoints = SpawnPoints;
-
         foreach (var Player in Players)
         {
-            int RandomPointIndex = Random.Range(0, CachedSpawnPoints.Count - 1);
-            Player.Value.Controller.transform.position = CachedSpawnPoints[RandomPointIndex].position;
-            CachedSpawnPoints.RemoveAt(RandomPointIndex);
+            Player.Value.Controller.transform.position = SpawnPoints[Player.Value.id].position;
         }
     }
 
