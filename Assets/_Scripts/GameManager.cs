@@ -87,7 +87,6 @@ public class GameManager : Singleton<GameManager>
     {
         foreach (var Player in Players)
         {
-            print(SpawnPoints[Player.Value.id]);
             Player.Value.Controller.transform.position = SpawnPoints[Player.Value.id].position;
         }
     }
@@ -95,6 +94,7 @@ public class GameManager : Singleton<GameManager>
     public int JoinLobby(RaycastCarController Controller)
     {
         int ID = Players.Count;
+        print(ID);
         PlayersDebug.Add(Controller);
         Players.Add(ID, new PlayerInfo(ID, Controller));
 
