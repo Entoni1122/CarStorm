@@ -4,53 +4,45 @@ using UnityEngine;
 
 public class WheelVisuals : MonoBehaviour
 {
-    public GameObject[] wheelsToRotate;
-    public TrailRenderer[] trails;
-    public ParticleSystem smoke;
+    [Header("Reference to GameObject")]
+    [SerializeField] GameObject[] wheelsToRotate;
+    [SerializeField] TrailRenderer[] trails;
+    [SerializeField] ParticleSystem smoke;
 
-    public float rotationSpeed;
-    private Animator anim;
+    [Header("Wheels Stats")]
+    [SerializeField] float rotationSpeed;
+    [SerializeField] float frontWheelRotation;
+    [SerializeField] float maxWheelRotation;
 
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-    }
+    float moveInput;
+    float steerInput;
 
     void Update()
     {
-        float verticalAxis = Input.GetAxisRaw("Vertical");
-        float horizontalAxis = Input.GetAxisRaw("Horizontal");
+        moveInput = Input.GetAxisRaw("Vertical");
+        steerInput = Input.GetAxisRaw("Horizontal");
 
-        foreach (var wheel in wheelsToRotate)
-        {
-            wheel.transform.Rotate(Time.deltaTime * verticalAxis * rotationSpeed, 0, 0, Space.Self);
-        }
+        float steerAngle = maxWheelRotation * steerInput;
 
-        if (horizontalAxis > 0)
+        for (int i = 0; i < wheelsToRotate.Length; i++)
         {
-            anim.SetBool("goingLeft", false);
-            anim.SetBool("goingRight", true);
-        }
-        else if (horizontalAxis < 0)
-        {
-            anim.SetBool("goingRight", false);
-            anim.SetBool("goingLeft", true);
-        }
-        else
-        {
-            anim.SetBool("goingRight", false);
-            anim.SetBool("goingLeft", false);
-        }
+            if (i < 2)
+            {
+                //Front wheel rotation + left and write rotation with clamp
+                wheelsToRotate[i].transform.Rotate(0, Time.deltaTime * steerInput * frontWheelRotation, 0, Space.Self);
+                wheelsToRotate[i].transform.localEulerAngles = new Vector3(wheelsToRotate[i].transform.localEulerAngles.x, wheelsToRotate[i].transform.localEulerAngles.y, steerAngle);
 
-        if (horizontalAxis != 0)
+            }
+            //Back wheel rotation
+            wheelsToRotate[i].transform.Rotate(0, 0, Time.deltaTime * moveInput * rotationSpeed, Space.Self);
+        }
+        if (steerInput != 0)
         {
             foreach (var trail in trails)
             {
                 trail.emitting = true;
             }
-
-            var emission = smoke.emission;
-            emission.rateOverTime = 50f;
+            smoke.Play();
         }
         else
         {
@@ -58,9 +50,8 @@ public class WheelVisuals : MonoBehaviour
             {
                 trail.emitting = false;
             }
-
-            var emission = smoke.emission;
-            emission.rateOverTime = 0f;
+            smoke.Play();
         }
+        smoke.Stop();
     }
 }

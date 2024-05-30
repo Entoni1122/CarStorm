@@ -23,6 +23,7 @@ public class SphereCarController : MonoBehaviour
     [SerializeField] float stoppingAccel = 200f;
     [SerializeField] float fwdAccel = 100f;
     [SerializeField] float gravity = 200f;
+    [SerializeField] float trickShotSpeed = 200f;
 
     private float moveInput;
     private float turnInput;
@@ -40,12 +41,15 @@ public class SphereCarController : MonoBehaviour
         InputReader();
 
         float newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
-
         Acceleration();
 
         if (isCarGrounded)
         {
             transform.Rotate(0, newRot, 0, Space.World);
+        }
+        else
+        {
+            transform.Rotate(moveInput * trickShotSpeed * Time.deltaTime, 0, turnInput * trickShotSpeed * Time.deltaTime, Space.World);
         }
         transform.position = sphereRB.transform.position;
 
@@ -54,6 +58,14 @@ public class SphereCarController : MonoBehaviour
         moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
 
         sphereRB.drag = isCarGrounded ? normalDrag : modifiedDrag;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f, groundLayer) && !isCarGrounded)
+        {
+            print("Alligning to ground");
+            Quaternion toRotateTo = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, alignToGroundTime * Time.deltaTime);
+        }
     }
     void InputReader()
     {
