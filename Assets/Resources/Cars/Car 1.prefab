@@ -871,7 +871,7 @@ MonoBehaviour:
   models: {fileID: 7218893681663571461}
   normalDrag: 3
   modifiedDrag: 0.1
-  alignToGroundTime: 10
+  alignToGroundTime: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -883,7 +883,6 @@ MonoBehaviour:
   fwdAccel: 400
   gravity: 100
   trickShotSpeed: 200
-  modelTorque: 200
 --- !u!114 &8896248148291373486
 MonoBehaviour:
   m_ObjectHideFlags: 0

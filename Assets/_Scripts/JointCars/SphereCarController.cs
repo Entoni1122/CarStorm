@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using Cinemachine;
+using Photon.Pun;
 using UnityEngine;
 
 public class SphereCarController : MonoBehaviour
@@ -26,18 +28,55 @@ public class SphereCarController : MonoBehaviour
     [SerializeField] float gravity = 200f;
     [SerializeField] float trickShotSpeed = 200f;
 
+    PhotonView photonView;
+
     private float moveInput;
     private float turnInput;
     private bool isCarGrounded;
+
+
+    [Header("Cameras")]
+    [SerializeField] GameObject cameraToSpawn;
+    [SerializeField] GameObject cameraOffSet;
+    [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
 
     void Start()
     {
         sphereRB.transform.parent = null;
         carRb.transform.parent = null;
         normalDrag = sphereRB.drag;
+
+        photonView = GetComponent<PhotonView>();
+
+        SetUpCameras();
     }
 
     void Update()
+    {
+        if (photonView.IsMine)
+        {
+            MovemntUpdate();
+        }
+    }
+
+    public void SetUpCameras()
+    {
+        GameObject cinemachineBrain = Instantiate(cameraToSpawn);
+        GameObject cameraOff = Instantiate(cameraOffSet);
+        cameraOff.GetComponent<CameraFollower>().Init(this.gameObject.transform, ref photonView);
+
+        if (!photonView.IsMine)
+        {
+            cinemachineBrain.SetActive(false);
+            cinemachineVirtualCamera.gameObject.SetActive(false);
+        }
+        else
+        {
+            cinemachineVirtualCamera.Follow = cameraOff.transform;
+            cinemachineVirtualCamera.LookAt = transform;
+        }
+    }
+    void MovemntUpdate()
     {
         InputReader();
         AccelerationCalculation();
@@ -68,7 +107,6 @@ public class SphereCarController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, alignToGroundTime * Time.deltaTime);
         }
     }
-
 
     void InputReader()
     {
