@@ -30,7 +30,7 @@ public class WheelVisuals : MonoBehaviour
             {
                 //Front wheel rotation + left and write rotation with clamp
                 wheelsToRotate[i].transform.Rotate(0, Time.deltaTime * steerInput * frontWheelRotation, 0, Space.Self);
-                wheelsToRotate[i].transform.localEulerAngles = new Vector3(wheelsToRotate[i].transform.localEulerAngles.x, wheelsToRotate[i].transform.localEulerAngles.y, steerAngle);
+                wheelsToRotate[i].transform.localEulerAngles = new Vector3(steerAngle, wheelsToRotate[i].transform.localEulerAngles.y, wheelsToRotate[i].transform.localEulerAngles.z);
 
             }
             //Back wheel rotation
