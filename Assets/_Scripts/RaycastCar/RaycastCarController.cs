@@ -69,7 +69,7 @@ public class RaycastCarController : MonoBehaviour
 
         SetUpCameras();
 
-        ID = GameManager.Self.JoinLobby(this);
+        ID = GameManager.Instance.JoinLobby(this);
     }
 
     public void SetUpCameras()
