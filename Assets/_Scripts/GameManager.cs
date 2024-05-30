@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game References")]
     [SerializeField] private List<Transform> SpawnPoints;
-    private List<RaycastCarController> PlayersDebug;
+    private List<RaycastCarController> PlayersDebug = new List<RaycastCarController>();
     private Dictionary<int, PlayerInfo> Players = new Dictionary<int, PlayerInfo>();
 
 
