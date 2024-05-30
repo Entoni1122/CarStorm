@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game References")]
     [SerializeField] private List<Transform> SpawnPoints;
+    private List<RaycastCarController> PlayersDebug;
     private Dictionary<int, PlayerInfo> Players = new Dictionary<int, PlayerInfo>();
 
 
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var Player in Players)
         {
-            int RandomPointIndex = Random.Range(0, CachedSpawnPoints.Count);
+            int RandomPointIndex = Random.Range(0, CachedSpawnPoints.Count - 1);
             Player.Value.Controller.transform.position = CachedSpawnPoints[RandomPointIndex].position;
             CachedSpawnPoints.RemoveAt(RandomPointIndex);
         }
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
     public int JoinLobby(RaycastCarController Controller)
     {
         int ID = Players.Keys.Count;
+        PlayersDebug.Add(Controller);
         Players.Add(Players.Keys.Count, new PlayerInfo(ref ID, ref Controller));
 
         if (Players.Keys.Count > 1) 
