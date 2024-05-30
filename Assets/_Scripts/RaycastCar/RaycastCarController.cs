@@ -59,12 +59,17 @@ public class RaycastCarController : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] GameObject canvas;
 
+    [Header("GameProperty")]
+    private int ID;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         punView = GetComponent<PhotonView>();
 
         SetUpCameras();
+
+        ID = GameManager.Self.JoinLobby(this);
     }
 
     public void SetUpCameras()
