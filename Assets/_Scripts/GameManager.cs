@@ -87,6 +87,7 @@ public class GameManager : Singleton<GameManager>
     {
         foreach (var Player in Players)
         {
+            print(SpawnPoints[Player.Value.id]);
             Player.Value.Controller.transform.position = SpawnPoints[Player.Value.id].position;
         }
     }
