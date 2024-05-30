@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9013537633771799836}
   - component: {fileID: 6525997779702901422}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 7.08
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4777,7 +4777,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2937408974003050514, guid: 65e6dbf0eac59ba48b26a04a71f4035e, type: 3}
+  - {fileID: -6629797300637803691, guid: 50149908522b11f49a538aa8fda766f4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

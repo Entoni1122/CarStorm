@@ -23,14 +23,18 @@ public class WheelVisuals : MonoBehaviour
         steerInput = Input.GetAxisRaw("Horizontal");
 
         float steerAngle = maxWheelRotation * steerInput;
+        if (moveInput != 0 && steerInput != 0)
+        {
+            smoke.Stop();
+        }
 
         for (int i = 0; i < wheelsToRotate.Length; i++)
         {
             if (i < 2)
             {
                 //Front wheel rotation + left and write rotation with clamp
-                wheelsToRotate[i].transform.Rotate(0, Time.deltaTime * steerInput * frontWheelRotation, 0, Space.Self);
-                wheelsToRotate[i].transform.localEulerAngles = new Vector3(steerAngle, wheelsToRotate[i].transform.localEulerAngles.y, wheelsToRotate[i].transform.localEulerAngles.z);
+                //wheelsToRotate[i].transform.Rotate(0, 0, Time.deltaTime * steerInput * frontWheelRotation, Space.Self);
+                wheelsToRotate[i].transform.localEulerAngles = new Vector3(wheelsToRotate[i].transform.localEulerAngles.x, steerAngle + 90, wheelsToRotate[i].transform.localEulerAngles.z);
 
             }
             //Back wheel rotation
@@ -42,6 +46,7 @@ public class WheelVisuals : MonoBehaviour
             {
                 trail.emitting = true;
             }
+            print("Entering");
             smoke.Play();
         }
         else
@@ -50,8 +55,6 @@ public class WheelVisuals : MonoBehaviour
             {
                 trail.emitting = false;
             }
-            smoke.Play();
         }
-        smoke.Stop();
     }
 }

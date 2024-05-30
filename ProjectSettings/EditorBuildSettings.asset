@@ -15,5 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Pun/EntoniPlayGround.unity
     guid: a49dbfa2765033d4086ec98a4c86b870
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 9c86e17e2f4a3a74d86b74b6e5c0f871,
+      type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 926acc612929676439cbc109fe5f3c0d, type: 2}

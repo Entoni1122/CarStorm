@@ -25,7 +25,6 @@ public class SphereCarController : MonoBehaviour
     [SerializeField] float fwdAccel = 100f;
     [SerializeField] float gravity = 200f;
     [SerializeField] float trickShotSpeed = 200f;
-    [SerializeField] float modelTorque;
 
     private float moveInput;
     private float turnInput;
@@ -49,7 +48,6 @@ public class SphereCarController : MonoBehaviour
         if (isCarGrounded)
         {
             transform.Rotate(0, newRot, 0, Space.World);
-            //BodyTorque();
         }
         else
         {
@@ -71,13 +69,6 @@ public class SphereCarController : MonoBehaviour
         }
     }
 
-    void BodyTorque()
-    {
-        float yes = moveInput * modelTorque * Time.deltaTime;
-        models.Rotate(yes, 0, 0, Space.Self);
-
-        models.eulerAngles = new Vector3(Mathf.Clamp(yes, -3, 3), models.eulerAngles.y, models.eulerAngles.z);
-    }
 
     void InputReader()
     {
