@@ -1339,8 +1339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3110b5630f64e384eb12601dbb7934be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 869860315826657332, guid: 7af0a1285121d0340b4bbcaf184a497a, type: 3}
-  spawnPoint: {fileID: 1434073189}
+  prefab: {fileID: 2774824451347135201, guid: a77856a5182c9c645a79bf76cc57bcb3, type: 3}
+  spawnPoints:
+  - {fileID: 501946263}
+  - {fileID: 680333860}
 --- !u!4 &305499363
 Transform:
   m_ObjectHideFlags: 0
@@ -7300,13 +7302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53ae487ad2789b46978c0e4c6b5fa3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountDown: 5
-  MaxTurns: 5
-  CountDownOn: 0
-  SpawnPoints:
-  - {fileID: 501946263}
-  - {fileID: 680333860}
-  PlayersDebug: []
 --- !u!43 &2006442448
 Mesh:
   m_ObjectHideFlags: 0
