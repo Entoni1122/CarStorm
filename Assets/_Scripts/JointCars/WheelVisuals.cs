@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.Rendering;
 
 public class WheelVisuals : MonoBehaviour
 {
@@ -40,16 +42,35 @@ public class WheelVisuals : MonoBehaviour
             //Back wheel rotation
             wheelsToRotate[i].transform.Rotate(0, 0, Time.deltaTime * moveInput * rotationSpeed, Space.Self);
         }
+
         if (steerInput != 0)
+        {
+            GetComponent<PhotonView>().RPC("EnableTrail", RpcTarget.All);
+
+            smoke.Play();
+        }
+        else
+        {
+            GetComponent<PhotonView>().RPC("DisableTrail", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    void EnableTrail()
+    {
+        if (GetComponent<PhotonView>().IsMine)
         {
             foreach (var trail in trails)
             {
                 trail.emitting = true;
             }
-            print("Entering");
-            smoke.Play();
         }
-        else
+    }
+
+    [PunRPC]
+    void DisableTrail()
+    {
+        if (GetComponent<PhotonView>().IsMine)
         {
             foreach (var trail in trails)
             {
