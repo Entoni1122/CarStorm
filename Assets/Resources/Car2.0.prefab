@@ -1798,7 +1798,7 @@ GameObject:
   - component: {fileID: 1096691826283202976}
   m_Layer: 7
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
