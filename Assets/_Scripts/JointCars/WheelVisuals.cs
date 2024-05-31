@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Rendering;
+using UnityEditor.Rendering;
 
 public class WheelVisuals : MonoBehaviour
 {
@@ -42,16 +43,32 @@ public class WheelVisuals : MonoBehaviour
             //Back wheel rotation
             wheelsToRotate[i].transform.Rotate(0, 0, Time.deltaTime * moveInput * rotationSpeed, Space.Self);
         }
-
-        if (steerInput != 0)
+        if (PhotonNetwork.IsConnected)
         {
-            GetComponent<PhotonView>().RPC("EnableTrail", RpcTarget.All);
+            if (steerInput != 0)
+            {
+                GetComponent<PhotonView>().RPC("EnableTrail", RpcTarget.All);
 
-            smoke.Play();
+                smoke.Play();
+            }
+            else
+            {
+                GetComponent<PhotonView>().RPC("DisableTrail", RpcTarget.All);
+            }
         }
         else
         {
-            GetComponent<PhotonView>().RPC("DisableTrail", RpcTarget.All);
+            print("not connected");
+            if (steerInput != 0)
+            {
+                EnableTrail();
+
+                smoke.Play();
+            }
+            else
+            {
+                DisableTrail();
+            }
         }
     }
 

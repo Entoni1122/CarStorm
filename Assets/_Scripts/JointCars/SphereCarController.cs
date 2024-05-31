@@ -34,7 +34,6 @@ public class SphereCarController : MonoBehaviour
     private float turnInput;
     private bool isCarGrounded;
 
-
     [Header("Cameras")]
     [SerializeField] GameObject cameraToSpawn;
     [SerializeField] GameObject cameraOffSet;
@@ -81,9 +80,9 @@ public class SphereCarController : MonoBehaviour
         InputReader();
         AccelerationCalculation();
         CheckGrounded();
-
-        float newRot = turnInput * turnSpeed * Time.deltaTime * (sphereRB.velocity.magnitude * 0.01f);
-
+        float velocityConstaint = Mathf.Clamp(1f - (sphereRB.velocity.magnitude * 0.01f), 1f, 2f);
+        float newRot = turnInput * turnSpeed * Time.deltaTime * velocityConstaint;
+        print(sphereRB.velocity.magnitude * 0.01f);
         if (isCarGrounded)
         {
             transform.Rotate(0, newRot, 0, Space.World);
