@@ -38,16 +38,17 @@ public class SphereCarController : MonoBehaviour
     [SerializeField] GameObject cameraToSpawn;
     [SerializeField] GameObject cameraOffSet;
     [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
-
+    [SerializeField] public Camera _camera;
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+        SetUpCameras();
+    }
     void Start()
     {
         sphereRB.transform.parent = null;
         carRb.transform.parent = null;
         normalDrag = sphereRB.drag;
-
-        photonView = GetComponent<PhotonView>();
-
-        SetUpCameras();
     }
 
     void Update()
@@ -61,12 +62,13 @@ public class SphereCarController : MonoBehaviour
     public void SetUpCameras()
     {
         GameObject cinemachineBrain = Instantiate(cameraToSpawn);
+        _camera = cinemachineBrain.GetComponent<Camera>();
         GameObject cameraOff = Instantiate(cameraOffSet);
         cameraOff.GetComponent<CameraFollower>().Init(this.gameObject.transform, ref photonView);
 
         if (!photonView.IsMine)
         {
-            cinemachineBrain.SetActive(false);
+            _camera.gameObject.SetActive(false);
             cinemachineVirtualCamera.gameObject.SetActive(false);
         }
         else
