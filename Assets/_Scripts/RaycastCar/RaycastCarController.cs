@@ -8,7 +8,7 @@ public class RaycastCarController : MonoBehaviour
 {
     [Header("Joystick")]
     [SerializeField] Joystick TouchJoystick;
-    [SerializeField] float YawOffset = 45;
+    [SerializeField] float yawOffset = 45;
 
     [Header("Base Vars")]
     [SerializeField] Transform[] raycastPoints;
@@ -301,7 +301,7 @@ public class RaycastCarController : MonoBehaviour
         {
             Vector3 ForwardFix = new Vector3(TouchJoystick.Direction.x, 0, TouchJoystick.Direction.y);
             Quaternion TargetRotation = Quaternion.LookRotation(ForwardFix, Vector3.up);
-            TargetRotation.eulerAngles -= new Vector3(0, YawOffset, 0);
+            TargetRotation.eulerAngles -= new Vector3(0, yawOffset, 0);
             transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, steerStregth * Time.fixedDeltaTime);
         }
     }
