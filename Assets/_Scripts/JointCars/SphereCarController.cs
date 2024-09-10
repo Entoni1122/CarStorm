@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
 using Cinemachine;
 using Photon.Pun;
 using UnityEngine;
@@ -39,6 +36,7 @@ public class SphereCarController : MonoBehaviour
     [SerializeField] GameObject cameraOffSet;
     [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] public Camera _camera;
+
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
@@ -116,6 +114,7 @@ public class SphereCarController : MonoBehaviour
     }
     void AccelerationCalculation()
     {
+        //Acceleration if movemnt button is pressed
         if (moveInput > 0)
         {
             if (fwdSpeed < maxFwdSpeed)
@@ -148,11 +147,13 @@ public class SphereCarController : MonoBehaviour
     {
         if (isCarGrounded)
         {
+            //Move with input if the car is touching the ground
             sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
 
         }
         else
         {
+            //Pull the car towards the ground if not grounded
             sphereRB.AddForce(Vector3.down * gravity);
         }
         carRb.MoveRotation(transform.rotation);

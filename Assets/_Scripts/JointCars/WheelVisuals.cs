@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using UnityEngine.Rendering;
-using UnityEditor.Rendering;
 
 public class WheelVisuals : MonoBehaviour
 {
@@ -35,10 +31,8 @@ public class WheelVisuals : MonoBehaviour
         {
             if (i < 2)
             {
-                //Front wheel rotation + left and write rotation with clamp
-                //wheelsToRotate[i].transform.Rotate(0, 0, Time.deltaTime * steerInput * frontWheelRotation, Space.Self);
+                //Front wheel rotation
                 wheelsToRotate[i].transform.localEulerAngles = new Vector3(wheelsToRotate[i].transform.localEulerAngles.x, steerAngle + 90, wheelsToRotate[i].transform.localEulerAngles.z);
-
             }
             //Back wheel rotation
             wheelsToRotate[i].transform.Rotate(0, 0, Time.deltaTime * moveInput * rotationSpeed, Space.Self);
